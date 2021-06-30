@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EuroVaccination</title>
+</head>
+<body>
+    <h2>Rang des pays UE</h2>
+    <div id="ue_ranking"></div>
+
+</body>
+</html>
+
+<script>
+    download_data()
+
+    function build_table(data){
+        inner_html = "s"
+        console.log(data)
+        for(country in Object.keys(data)){
+            inner_html += country;
+        }
+        document.getElementById("ue_ranking").innerHTML = inner_html;
+
+    }
+
+    function download_data() {
+        var requestURL = `https://raw.githubusercontent.com/rozierguillaume/eurovaccination/main/data/output/vaccination_ue_ranking.json`;
+        var request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function () {
+            var data = request.response;
+            console.log(data);
+            build_table(data);
+            console.log(data)
+        }
+    }
+</script>
