@@ -43,7 +43,7 @@ def get_data_last_date(df):
     return df[df["date"]==max_date].reset_index()
 
 def get_people_vaccinated_per_hundred_lastdate(df):
-    return df["people_vaccinated_per_hundred"].dropna().values[0]
+    return round(df["people_vaccinated_per_hundred"].dropna().values[0], 1)
 
 def get_speed_people_vaccinated_per_hundred_lastdate(df):
     df = df.sort_values(by="date").dropna()
