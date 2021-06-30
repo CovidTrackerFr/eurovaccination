@@ -1,3 +1,13 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<style>
+    h2 {
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +15,30 @@
     <title>EuroVaccination</title>
 </head>
 <body>
-    <h2>Rang des pays UE</h2>
-    <div id="ue_ranking"></div>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid" style="max-width:1200px">
+          <a class="navbar-brand" href="#"><img src="https://raw.githubusercontent.com/rozierguillaume/electracker/main/img/electracker_logo_transparent.png" alt="" width="31" height="30" style="margin-right: 10px;">EuroVaccination</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#about">À propos</a>
+                  </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/rozierguillaume/eurovaccination">Code source</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 30px;">
+        <h2>Rang des pays UE</h2>
+        <div id="ue_ranking"></div>
+
+        <h2 id="about">À propos</h2>
+    </div>
 
 </body>
 </html>
@@ -14,13 +46,40 @@
 <script>
     download_data()
 
+    function return_tbody(country, data){
+        return `<tr>
+                  <th scope="row">1</th>
+                  <td>${country}</td>
+                  <td>${data.people_vaccinated_per_hundred} %</td>
+                  <td>${data.speed_people_vaccinated_per_hundred}</td>
+                </tr>`
+    }
+
+    function return_table(list_tbodies){
+        let tbodies = list_tbodies.join('')
+        return `<table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Pays</th>
+                      <th scope="col">Population vaccinée</th>
+                      <th scope="col">Vitesse (sur 7 j.)</th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                        ${tbodies}
+                    </tbody>
+                   </table>`
+    }
+
     function build_table(data){
-        inner_html = "s"
-        console.log(data)
-        for(country in Object.keys(data)){
-            inner_html += country;
+        tbodies = []
+        for(country in data){
+            tbodies.push(return_tbody(country, data[country]))
+            //inner_html += data[country]["people_vaccinated_per_hundred"]
+            //inner_html += "<br>"
         }
-        document.getElementById("ue_ranking").innerHTML = inner_html;
+        document.getElementById("ue_ranking").innerHTML = return_table(tbodies);
 
     }
 
@@ -32,9 +91,7 @@
         request.send();
         request.onload = function () {
             var data = request.response;
-            console.log(data);
             build_table(data);
-            console.log(data)
         }
     }
 </script>

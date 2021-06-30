@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import numpy as np
 
 COUNTRIES_UE = [
     "Austria",
@@ -53,15 +54,22 @@ def get_speed_people_vaccinated_per_hundred_lastdate(df):
         print(e)
         return 0
 
+def sort_values_dict(dict, sort_by="people_vaccinated_per_hundred"):
+    countries = [country for country in dict]
+    values = [dict[country][sort_by] for country in dict]
+    index_sorted = np.argsort(values)
+    return list(np.array(countries)[index_sorted])
+
 def get_dict_vaccination_per_ue_country(df):
-    dict_people_vaccinated = {}
+    dict_people_vaccinated = {"data": {}}
     for country in COUNTRIES_UE:
         df_country = df[df["location"]==country]
         df_lastdate = get_data_last_date(df_country)
         people_vaccinated_per_hundred = get_people_vaccinated_per_hundred_lastdate(df_lastdate)
         speed_people_vaccinated_per_hundred = get_speed_people_vaccinated_per_hundred_lastdate(df_country)
-        dict_people_vaccinated[country] = {"people_vaccinated_per_hundred": people_vaccinated_per_hundred,
-                                           "speed_people_vaccinated_per_hundred": speed_people_vaccinated_per_hundred}
+        dict_people_vaccinated["data"][country] = {"people_vaccinated_per_hundred": people_vaccinated_per_hundred,
+                                                    "speed_people_vaccinated_per_hundred": speed_people_vaccinated_per_hundred}
+    dict_people_vaccinated["countries_sorted"] = sort_values_dict(dict_people_vaccinated["data"])
     return dict_people_vaccinated
 
 def export_dict_people_vaccinated(dict_people_vaccinated):
