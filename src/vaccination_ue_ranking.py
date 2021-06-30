@@ -63,8 +63,4 @@ def export_dict_people_vaccinated(dict_people_vaccinated):
     with open("../data/output/vaccination_ue_ranking.json", "w") as file:
         file.write(json.dumps(dict_people_vaccinated))
 
-df = import_data()
-df_ue = get_ue_data(df)
-dict_people_vaccinated = get_dict_vaccination_per_ue_country(df_ue)
-export_dict_people_vaccinated(dict_people_vaccinated)
 
