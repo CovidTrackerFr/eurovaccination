@@ -6,6 +6,73 @@
         margin-top: 50px;
         margin-bottom: 10px;
     }
+
+.bodypodium {
+     margin-top: 5em;
+     text-align: center;
+ }
+
+.title {
+         color: #2c3e50;
+         text-transform: uppercase;
+     }
+
+.first-place {
+             background-color: #2ecc71;
+             height: 250px;
+             width: 250px;
+             margin: 0 auto;
+             line-height: 60px;
+             font-size: 50px;
+             font-weight: 800;
+             color: #27ae60;
+             border-radius: 20px;
+         }
+
+.second-place {
+                background-color: #f1c40f;
+                height: 200px;
+                width: 200px;
+                margin: 0 auto;
+                margin-top: 10px;
+                margin-right: 10px;
+                line-height: 60px;
+                font-size: 50px;
+                font-weight: 800;
+                color: #f39c12;
+                display: inline-block;
+                border-radius: 20px;
+            }
+
+.third-place {
+                background-color: #e74c3c;
+                height: 200px;
+                width: 200px;
+                margin: 0 auto;
+                margin-left: -4px;
+                margin-top: 10px;
+                line-height: 60px;
+                font-size: 50px;
+                font-weight: 800;
+                color: #c0392b;
+                display: inline-block;
+                border-radius: 20px;
+            }
+
+.first-place:hover {
+    transform: translate(0px, -20px);
+    transition: ease-in-out 0.1s;
+}
+
+.second-place:hover {
+    transform: translate(-20px, 20px);
+    transition: ease-in-out 0.1s;
+}
+
+.third-place:hover {
+    transform: translate(20px, 20px);
+    transition: ease-in-out 0.1s;
+}
 </style>
 
 <!DOCTYPE html>
@@ -43,7 +110,17 @@
 
         <p>EuroVaccination est un outil permettant de suivre l'évolution de la campagne de vaccination dans les différents pays européns.</p>
 
-        <h2>Rang des pays UE</h2>
+        <h2>Podium</h2>
+        <div class="bodypodium">
+        <div id="first-place" class="first-place">1
+        </div>
+        <div id="second-place" class="second-place">2
+        </div>
+        <div id="third-place" class="third-place">3
+        </div>
+        </div>
+
+        <h2>Rang des pays européens</h2>
         <div id="ue_ranking"></div>
 
         <h2>Évolution</h2>
@@ -90,10 +167,35 @@
     }
     download_data()
 
+    function update_podium(data){
+
+        country_first = data["countries_sorted"][0]
+        document.getElementById("first-place").innerHTML += `
+            <span style="font-size: 30px; line-height: 1px;"><br>${country_first}</span>
+            <br>
+            <img width="30%" style="border-radius: 5px;" src=\"https://lipis.github.io/flag-icon-css/flags/4x3/${COUNTRIES_CODES[country_first]}.svg\" alt=\"\" />
+        `
+
+        country_second = data["countries_sorted"][1]
+        document.getElementById("second-place").innerHTML += `
+            <span style="font-size: 30px; line-height: 1px;"><br>${country_second}</span>
+            <br>
+            <img width="30%" style="border-radius: 5px;" src=\"https://lipis.github.io/flag-icon-css/flags/4x3/${COUNTRIES_CODES[country_second]}.svg\" alt=\"\" />
+        `
+
+        country_third = data["countries_sorted"][2]
+        document.getElementById("third-place").innerHTML += `
+            <span style="font-size: 30px; line-height: 1px;"><br>${country_third}</span>
+            <br>
+            <img width="30%" style="border-radius: 5px;" src=\"https://lipis.github.io/flag-icon-css/flags/4x3/${COUNTRIES_CODES[country_third]}.svg\" alt=\"\" />
+        `
+
+    }
+
     function return_tbody(country, data, rank){
         return `<tr>
                   <th scope="row">${rank}</th>
-                  <td><img src="https://lipis.github.io/flag-icon-css/flags/4x3/${COUNTRIES_CODES[country]}.svg" alt="" /></td>
+                  <td></td>
                   <td>${country}</td>
                   <td>${data.people_vaccinated_per_hundred} %</td>
                   <td>+${data.speed_people_vaccinated_per_hundred}</td>
@@ -138,6 +240,7 @@
         request.onload = function () {
             var data = request.response;
             build_table(data);
+            update_podium(data);
         }
     }
 </script>
