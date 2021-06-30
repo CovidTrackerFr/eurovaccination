@@ -57,7 +57,7 @@ def get_speed_people_vaccinated_per_hundred_lastdate(df):
 def sort_values_dict(dict, sort_by="people_vaccinated_per_hundred"):
     countries = [country for country in dict]
     values = [dict[country][sort_by] for country in dict]
-    index_sorted = np.argsort(values)
+    index_sorted = np.argsort(-np.array(values))
     return list(np.array(countries)[index_sorted])
 
 def get_dict_vaccination_per_ue_country(df):

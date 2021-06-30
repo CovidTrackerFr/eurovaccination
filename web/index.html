@@ -74,11 +74,12 @@
 
     function build_table(data){
         tbodies = []
-        for(country in data){
-            tbodies.push(return_tbody(country, data[country]))
+        data["countries_sorted"].map(country => {
+            console.log(country)
+            tbodies.push(return_tbody(country, data["data"][country]))
             //inner_html += data[country]["people_vaccinated_per_hundred"]
             //inner_html += "<br>"
-        }
+        })
         document.getElementById("ue_ranking").innerHTML = return_table(tbodies);
 
     }
