@@ -136,6 +136,7 @@
         </div>
 
         <h2>Rang des pays européens</h2>
+        Mise à jour : <span id="date-update">--/--</span>
         <div id="ue_ranking"></div>
 
         <h2>Évolution</h2>
@@ -258,6 +259,10 @@
     function url_tweet(classement){
         document.getElementById("tweet").href = `https://twitter.com/intent/tweet?text=La%20France%20est%20classée%20numéro%20${classement}%20sur%2027%20dans%20l%E2%80%99%23EuroVaccination%20%21%20Vaccinez-vous%20pour%20supporter%20ce%20pays.%20@EuroVaccination%20eurovaccination.fr`
     }
+
+    function update_date(data){
+        document.getElementById("date-update").innerHTML = data["max_date"];
+    }
     function download_data() {
         var requestURL = `https://raw.githubusercontent.com/rozierguillaume/eurovaccination/main/data/output/vaccination_ue_ranking.json`;
         var request = new XMLHttpRequest();
@@ -270,6 +275,7 @@
             update_podium(data);
             let classement = update_podium_classement_pays(data);
             url_tweet(classement);
+            update_date(data);
         }
     }
 </script>

@@ -70,6 +70,7 @@ def get_dict_vaccination_per_ue_country(df):
         dict_people_vaccinated["data"][country] = {"people_vaccinated_per_hundred": people_vaccinated_per_hundred,
                                                     "speed_people_vaccinated_per_hundred": speed_people_vaccinated_per_hundred}
     dict_people_vaccinated["countries_sorted"] = sort_values_dict(dict_people_vaccinated["data"])
+    dict_people_vaccinated["max_date"] = df.date.max()
     return dict_people_vaccinated
 
 def export_dict_people_vaccinated(dict_people_vaccinated):
