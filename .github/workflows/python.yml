@@ -34,5 +34,6 @@ jobs:
         
     - name: Données Vaccin Europe
       run: |
+        cd src/
         python src/main.py
     - uses: stefanzweifel/git-auto-commit-action@v4
