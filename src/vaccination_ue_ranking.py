@@ -45,6 +45,13 @@ def get_data_last_date(df):
 def get_people_vaccinated_per_hundred_lastdate(df):
     return round(df["people_vaccinated_per_hundred"].dropna().values[0], 1)
 
+def get_people_fully_vaccinated_per_hundred_lastdate(df):
+    try:
+        return round(df["people_fully_vaccinated_per_hundred"].dropna().values[0], 1)
+    except Exception as e:
+        print(e)
+        return 0
+
 def get_speed_people_vaccinated_per_hundred_lastdate(df):
     df = df.sort_values(by="date").dropna()
     try:
@@ -66,9 +73,11 @@ def get_dict_vaccination_per_ue_country(df):
         df_country = df[df["location"]==country]
         df_lastdate = get_data_last_date(df_country)
         people_vaccinated_per_hundred = get_people_vaccinated_per_hundred_lastdate(df_lastdate)
+        people_fully_vaccinated_per_hundred = get_people_fully_vaccinated_per_hundred_lastdate(df_lastdate)
         speed_people_vaccinated_per_hundred = get_speed_people_vaccinated_per_hundred_lastdate(df_country)
         dict_people_vaccinated["data"][country] = {"people_vaccinated_per_hundred": people_vaccinated_per_hundred,
-                                                    "speed_people_vaccinated_per_hundred": speed_people_vaccinated_per_hundred}
+                                                    "speed_people_vaccinated_per_hundred": speed_people_vaccinated_per_hundred,
+                                                   "people_fully_vaccinated_per_hundred": people_fully_vaccinated_per_hundred}
     dict_people_vaccinated["countries_sorted"] = sort_values_dict(dict_people_vaccinated["data"])
     dict_people_vaccinated["max_date"] = df.date.max()
     return dict_people_vaccinated
