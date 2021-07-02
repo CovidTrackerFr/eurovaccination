@@ -1,4 +1,4 @@
-import src.vaccination_ue_ranking as ue
+import vaccination_ue_ranking as ue
 
 if __name__ == "__main__":
     df = ue.import_data()
