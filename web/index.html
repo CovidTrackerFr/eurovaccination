@@ -212,12 +212,13 @@
     }
 
     function return_tbody(country, data, rank){
+        console.log(data)
         return `<tr>
                   <th scope="row"><span style="font-size: 30px;">${rank}</span></th>
                   <td><img width="50px" style="border-radius: 3px;" src=\"https://lipis.github.io/flag-icon-css/flags/4x3/${COUNTRIES_CODES[country]}.svg\" alt=\"\" /></td>
-                  <td><span style="font-size: 20px;">${country}</span></td>
-                  <td><span style="font-size: 20px;">${data.people_vaccinated_per_hundred} %</span></td>
-                  <!--<td><span style="font-size: 20px;">${data.people_fully_vaccinated_per_hundred} %</span></td>-->
+                  <td><span style="font-size: 20px; font-weight: bold;"">${country}</span></td>
+                  <td><span style="font-size: 20px; font-weight: bold;">${data.people_vaccinated_per_hundred} %</span></td>
+                  <td><span style="font-size: 20px;">${data.people_fully_vaccinated_per_hundred} %</span></td>
                   <td><span style="font-size: 20px;">+${data.speed_people_vaccinated_per_hundred}</span></td>
                 </tr>`
     }
@@ -231,7 +232,7 @@
                       <th></th>
                       <th scope="col">Pays</th>
                       <th scope="col">Population vaccinée (1+ dose)</th>
-                      <!--<th scope="col">Population totalement vaccinée</th>-->
+                      <th scope="col">Population totalement vaccinée</th>
                       <th scope="col">Évolution (sur 7 j.)</th>
                     </tr>
                   </thead>
