@@ -216,6 +216,14 @@
 
     }
 
+    function check_zero_value(value){
+        if(value==0){
+            return "--"
+        } else {
+            return value
+        }
+    }
+
     function return_tbody(country, data, rank){
         var people_fully_vaccinated_per_hundred = data.people_fully_vaccinated_per_hundred
         if(people_fully_vaccinated_per_hundred == 0){
@@ -226,8 +234,8 @@
                   <td><img width="50px" style="border-radius: 3px;" src=\"https://lipis.github.io/flag-icon-css/flags/4x3/${COUNTRIES_CODES[country]}.svg\" alt=\"\" /></td>
                   <td><span style="font-size: 20px; font-weight: bold;"">${country}</span></td>
                   <td><span style="font-size: 20px; font-weight: bold; color: ${CHROMA_SCALE(data.people_vaccinated_per_hundred/100)};">${data.people_vaccinated_per_hundred} %</span></td>
-                  <td><span style="font-size: 20px; color: ${CHROMA_SCALE(data.people_fully_vaccinated_per_hundred/100)}">${people_fully_vaccinated_per_hundred} %</span></td>
-                  <td><span style="font-size: 20px;">+${data.speed_people_vaccinated_per_hundred}</span></td>
+                  <td><span style="font-size: 20px; color: ${CHROMA_SCALE(data.people_fully_vaccinated_per_hundred/100)}">${check_zero_value(data.people_fully_vaccinated_per_hundred)} %</span></td>
+                  <td><span style="font-size: 20px;">+${check_zero_value(data.speed_people_vaccinated_per_hundred)}</span></td>
                 </tr>`
     }
 
