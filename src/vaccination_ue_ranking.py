@@ -23,6 +23,7 @@ COUNTRIES_UE = [
     "Luxembourg",
     "Malta",
     "Netherlands",
+    "Norway",
     "Poland",
     "Portugal",
     "Romania",
