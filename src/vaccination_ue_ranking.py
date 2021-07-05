@@ -23,13 +23,16 @@ COUNTRIES_UE = [
     "Luxembourg",
     "Malta",
     "Netherlands",
+    "Norway",
     "Poland",
     "Portugal",
     "Romania",
     "Slovakia",
     "Slovenia",
     "Spain",
-    "Sweden"
+    "Sweden",
+    "Switzerland",
+    "United Kingdom"
 ]
 
 def import_data():
